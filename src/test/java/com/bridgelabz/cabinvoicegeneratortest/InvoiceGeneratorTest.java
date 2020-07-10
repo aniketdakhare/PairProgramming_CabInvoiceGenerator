@@ -21,7 +21,7 @@ public class InvoiceGeneratorTest
     {
         double distance = 3.0;
         int time = 7;
-        double fare = invoiceGenerator.calculateFare(distance, time);
+        double fare = invoiceGenerator.calculateFare(new Ride(distance, time));
         Assert.assertEquals(37, fare, 0.0);
     }
 
@@ -30,7 +30,7 @@ public class InvoiceGeneratorTest
     {
         double distance = 0.01;
         int time = 1;
-        double fare = invoiceGenerator.calculateFare(distance, time);
+        double fare = invoiceGenerator.calculateFare(new Ride(distance, time));
         Assert.assertEquals(5, fare, 0.0);
     }
 
