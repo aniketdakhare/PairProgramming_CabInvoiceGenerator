@@ -1,7 +1,7 @@
 package com.bridgelabz.cabinvoicegeneratortest;
 
 import com.bridgelabz.cabinvoicegenerator.service.InvoiceGenerator;
-import com.bridgelabz.cabinvoicegenerator.utility.InvoiceSummery;
+import com.bridgelabz.cabinvoicegenerator.utility.InvoiceSummary;
 import com.bridgelabz.cabinvoicegenerator.utility.Ride;
 import org.junit.Assert;
 import org.junit.Before;
@@ -22,9 +22,9 @@ public class InvoiceGeneratorTest
     {
         double distance = 3.0;
         int time = 7;
-        InvoiceSummery invoiceSummery = invoiceGenerator.calculateFare(new Ride(distance, time));
-        InvoiceSummery expectedInvoiceSummery = new InvoiceSummery(1,37);
-        Assert.assertEquals(expectedInvoiceSummery, invoiceSummery);
+        InvoiceSummary invoiceSummary = invoiceGenerator.calculateFare(new Ride(distance, time));
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(1,37);
+        Assert.assertEquals(expectedInvoiceSummary, invoiceSummary);
     }
 
     @Test
@@ -32,17 +32,26 @@ public class InvoiceGeneratorTest
     {
         double distance = 0.01;
         int time = 1;
-        InvoiceSummery invoiceSummery = invoiceGenerator.calculateFare(new Ride(distance, time));
-        InvoiceSummery expectedInvoiceSummery = new InvoiceSummery(1,5);
-        Assert.assertEquals(expectedInvoiceSummery, invoiceSummery);
+        InvoiceSummary invoiceSummary = invoiceGenerator.calculateFare(new Ride(distance, time));
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(1,5);
+        Assert.assertEquals(expectedInvoiceSummary, invoiceSummary);
     }
 
     @Test
     public void givenMultipleRides_ShouldReturnTotalFare()
     {
         Ride[] rides = {new Ride(3.0, 7), new Ride(0.01, 1)};
-        InvoiceSummery invoiceSummery = invoiceGenerator.calculateFare(rides);
-        InvoiceSummery expectedInvoiceSummery = new InvoiceSummery(rides.length,38.1);
-        Assert.assertEquals(expectedInvoiceSummery, invoiceSummery);
+        InvoiceSummary invoiceSummary = invoiceGenerator.calculateFare(rides);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(rides.length,38.1);
+        Assert.assertEquals(expectedInvoiceSummary, invoiceSummary);
+    }
+
+    @Test
+    public void givenUserId_ShouldReturnInvoiceSummary() {
+        String userId = "id2";
+        Ride[] rides = {new Ride(3.0, 7), new Ride(0.01, 1)};
+        InvoiceSummary summary = invoiceGenerator.invoiceForUser(userId, rides);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(rides.length, 38.1);
+        Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 }
