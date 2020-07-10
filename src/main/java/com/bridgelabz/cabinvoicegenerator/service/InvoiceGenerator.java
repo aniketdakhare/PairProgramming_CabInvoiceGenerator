@@ -10,13 +10,18 @@ public class InvoiceGenerator
     private static double COST_PER_KM;
     private static int COST_PER_MINUTE;
     private static double MINIMUM_FARE;
-
     RideRepository rideRepository;
+
     public InvoiceGenerator()
     {
        rideRepository = new RideRepository();
     }
 
+    /**
+     * METHOD TO CALCULATE TOTAL FARE
+     * @param rides provides ride details
+     * @return Invoice summary
+     */
     public InvoiceSummary calculateFare(Ride... rides)
     {
         double totalFare = 0;
@@ -30,6 +35,10 @@ public class InvoiceGenerator
         return new InvoiceSummary(rides.length, totalFare);
     }
 
+    /**
+     * METHOD TO CHECK THE TYPE OF RIDE AND FIX THE RATE
+     * @param rideType provides ride types
+     */
     private void checkRideType(String rideType)
     {
         switch (rideType)
@@ -47,11 +56,22 @@ public class InvoiceGenerator
         }
     }
 
+    /**
+     * METHOD TO GENERATE INVOICE FOR USER
+     * @param userId provides user id to get particular invoice
+     * @return Invoice summary
+     */
     public InvoiceSummary invoiceForUser(String userId)
     {
         return calculateFare(rideRepository.getRidesForUser(userId));
     }
 
+    /**
+     * METHOD TO ADD RIDE DETAILS ACCORDING TO USER IN LIST
+     * @param userId provides user id to add particular user ride details
+     * @param rides provides total rides
+     * @throws InvoiceGeneratorException handles exception if generated
+     */
     public void addRideToRepository(String[] userId, Ride[][] rides) throws InvoiceGeneratorException
     {
         for (int i = 0; i < userId.length; i++)
