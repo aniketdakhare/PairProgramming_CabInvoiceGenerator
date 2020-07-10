@@ -1,13 +1,21 @@
 package com.bridgelabz.cabinvoicegenerator.service;
 
+import com.bridgelabz.cabinvoicegenerator.exception.InvoiceGeneratorException;
 import com.bridgelabz.cabinvoicegenerator.utility.InvoiceSummary;
 import com.bridgelabz.cabinvoicegenerator.utility.Ride;
+import com.bridgelabz.cabinvoicegenerator.utility.RideRepository;
 
 public class InvoiceGenerator
 {
     private static final double COST_PER_KM = 10.0;
     private static final int COST_PER_MINUTE = 1;
     private static final double MINIMUM_FARE = 5.0;
+
+    RideRepository rideRepository;
+    public InvoiceGenerator()
+    {
+       rideRepository = new RideRepository();
+    }
 
     public InvoiceSummary calculateFare(Ride... rides)
     {
@@ -21,8 +29,15 @@ public class InvoiceGenerator
         return new InvoiceSummary(rides.length, totalFare);
     }
 
-    public InvoiceSummary invoiceForUser(String userId, Ride... rides)
-    {
-        return null;
+    public InvoiceSummary invoiceForUser(String userId) {
+        return calculateFare(rideRepository.getRidesForUser(userId));
+    }
+
+    public void addRideToRepository(String[] userId, Ride[][] rides) throws InvoiceGeneratorException {
+        for (int i = 0; i < userId.length; i++)
+        {
+            rideRepository.addRideForUser(userId[i], rides[i]);
+        }
+
     }
 }

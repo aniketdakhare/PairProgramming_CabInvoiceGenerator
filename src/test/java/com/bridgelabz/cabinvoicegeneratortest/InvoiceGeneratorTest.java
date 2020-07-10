@@ -1,5 +1,6 @@
 package com.bridgelabz.cabinvoicegeneratortest;
 
+import com.bridgelabz.cabinvoicegenerator.exception.InvoiceGeneratorException;
 import com.bridgelabz.cabinvoicegenerator.service.InvoiceGenerator;
 import com.bridgelabz.cabinvoicegenerator.utility.InvoiceSummary;
 import com.bridgelabz.cabinvoicegenerator.utility.Ride;
@@ -47,11 +48,14 @@ public class InvoiceGeneratorTest
     }
 
     @Test
-    public void givenUserId_ShouldReturnInvoiceSummary() {
-        String userId = "id2";
-        Ride[] rides = {new Ride(3.0, 7), new Ride(0.01, 1)};
-        InvoiceSummary summary = invoiceGenerator.invoiceForUser(userId, rides);
-        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(rides.length, 38.1);
+    public void givenUserId_ShouldReturnInvoiceSummary() throws InvoiceGeneratorException {
+        String[] userId = {"user1", "user2", "user3"};
+        Ride[][] rides = {{new Ride(5.0, 12), new Ride(2.5, 6)},
+                          {new Ride(3.0, 5), new Ride(0.01, 1)},
+                          {new Ride(10.0, 15), new Ride(2, 30)}};
+        invoiceGenerator.addRideToRepository(userId, rides);
+        InvoiceSummary summary = invoiceGenerator.invoiceForUser(userId[2]);
+        InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(rides[2].length, 165.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
     }
 }
