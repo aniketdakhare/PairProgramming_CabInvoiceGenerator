@@ -1,6 +1,7 @@
 package com.bridgelabz.cabinvoicegenerator.service;
 
-import com.bridgelabz.cabinvoicegeneratortest.InvoiceSummery;
+import com.bridgelabz.cabinvoicegenerator.utility.InvoiceSummery;
+import com.bridgelabz.cabinvoicegenerator.utility.Ride;
 
 public class InvoiceGenerator
 {
@@ -15,6 +16,8 @@ public class InvoiceGenerator
         {
             totalFare += ride.distance * COST_PER_KM + ride.time * COST_PER_MINUTE;
         }
-        return null;
+        if (totalFare < MINIMUM_FARE)
+            return new InvoiceSummery(rides.length, MINIMUM_FARE);
+        return new InvoiceSummery(rides.length, totalFare);
     }
 }

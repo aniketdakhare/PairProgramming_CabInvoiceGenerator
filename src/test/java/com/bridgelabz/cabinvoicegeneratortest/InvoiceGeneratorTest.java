@@ -1,7 +1,8 @@
 package com.bridgelabz.cabinvoicegeneratortest;
 
 import com.bridgelabz.cabinvoicegenerator.service.InvoiceGenerator;
-import com.bridgelabz.cabinvoicegenerator.service.Ride;
+import com.bridgelabz.cabinvoicegenerator.utility.InvoiceSummery;
+import com.bridgelabz.cabinvoicegenerator.utility.Ride;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,7 +23,7 @@ public class InvoiceGeneratorTest
         double distance = 3.0;
         int time = 7;
         InvoiceSummery invoiceSummery = invoiceGenerator.calculateFare(new Ride(distance, time));
-        InvoiceSummery expectedInvoiceSummery = new InvoiceSummery(1,38.1);
+        InvoiceSummery expectedInvoiceSummery = new InvoiceSummery(1,37);
         Assert.assertEquals(expectedInvoiceSummery, invoiceSummery);
     }
 
@@ -32,7 +33,7 @@ public class InvoiceGeneratorTest
         double distance = 0.01;
         int time = 1;
         InvoiceSummery invoiceSummery = invoiceGenerator.calculateFare(new Ride(distance, time));
-        InvoiceSummery expectedInvoiceSummery = new InvoiceSummery(1,38.1);
+        InvoiceSummery expectedInvoiceSummery = new InvoiceSummery(1,5);
         Assert.assertEquals(expectedInvoiceSummery, invoiceSummery);
     }
 

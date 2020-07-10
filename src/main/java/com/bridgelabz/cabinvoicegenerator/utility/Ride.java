@@ -1,4 +1,4 @@
-package com.bridgelabz.cabinvoicegenerator.service;
+package com.bridgelabz.cabinvoicegenerator.utility;
 
 public class Ride
 {
