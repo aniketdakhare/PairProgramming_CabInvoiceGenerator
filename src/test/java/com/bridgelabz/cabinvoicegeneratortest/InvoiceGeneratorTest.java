@@ -7,6 +7,7 @@ import com.bridgelabz.cabinvoicegenerator.utility.Ride;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class InvoiceGeneratorTest
 {
@@ -48,7 +49,8 @@ public class InvoiceGeneratorTest
     }
 
     @Test
-    public void givenUserId_ShouldReturnInvoiceSummary() throws InvoiceGeneratorException {
+    public void givenUserId_ShouldReturnInvoiceSummary() throws InvoiceGeneratorException
+    {
         String[] userId = {"user1", "user2", "user3"};
         Ride[][] rides = {{new Ride(5.0, 12), new Ride(2.5, 6)},
                           {new Ride(3.0, 5), new Ride(0.01, 1)},
@@ -57,5 +59,24 @@ public class InvoiceGeneratorTest
         InvoiceSummary summary = invoiceGenerator.invoiceForUser(userId[2]);
         InvoiceSummary expectedInvoiceSummary = new InvoiceSummary(rides[2].length, 165.0);
         Assert.assertEquals(expectedInvoiceSummary, summary);
+    }
+
+    @Test
+    public void givenSameUserId_ShouldThrowException()
+    {
+        try
+        {
+            String[] userId = {"user1", "user1", "user3"};
+            Ride[][] rides = {{new Ride(5.0, 12), new Ride(2.5, 6)},
+                    {new Ride(3.0, 5), new Ride(0.01, 1)},
+                    {new Ride(10.0, 15), new Ride(2, 30)}};
+            ExpectedException exceptionRule = ExpectedException.none();
+            exceptionRule.expect(InvoiceGeneratorException.class);
+            invoiceGenerator.addRideToRepository(userId, rides);
+        }
+        catch (InvoiceGeneratorException e)
+        {
+            e.printStackTrace();
+        }
     }
 }
