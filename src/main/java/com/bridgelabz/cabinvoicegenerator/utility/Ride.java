@@ -2,6 +2,7 @@ package com.bridgelabz.cabinvoicegenerator.utility;
 
 public class Ride
 {
+    public String rideType;
     public double distance;
     public int time;
 
@@ -11,7 +12,10 @@ public class Ride
         this.time = time;
     }
 
-    public Ride(double distance, int time, String rideType) {
-
+    public Ride(double distance, int time, String rideType)
+    {
+        this.distance = distance;
+        this.time = time;
+        this.rideType = rideType;
     }
 }
