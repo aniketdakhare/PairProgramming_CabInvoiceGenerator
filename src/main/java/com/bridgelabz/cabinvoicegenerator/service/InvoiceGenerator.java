@@ -5,6 +5,8 @@ import com.bridgelabz.cabinvoicegenerator.model.InvoiceSummary;
 import com.bridgelabz.cabinvoicegenerator.model.Ride;
 import com.bridgelabz.cabinvoicegenerator.utility.RideRepository;
 
+import java.util.stream.IntStream;
+
 public class InvoiceGenerator
 {
 
@@ -22,8 +24,9 @@ public class InvoiceGenerator
      */
     public InvoiceSummary calculateFare(Ride... rides)
     {
-        double totalFare = 0;
         double rideFare;
+        double totalFare = 0;
+
         for (Ride ride : rides)
         {
             rideFare = ride.distance * ride.rideType.COST_PER_KM + ride.time * ride.rideType.COST_PER_MINUTE;
@@ -48,13 +51,17 @@ public class InvoiceGenerator
      * METHOD TO ADD RIDE DETAILS ACCORDING TO USER IN LIST
      * @param userId provides user id to add particular user ride details
      * @param rides provides total rides
-     * @throws InvoiceGeneratorException handles exception if generated
      */
-    public void addRideToRepository(String[] userId, Ride[][] rides) throws InvoiceGeneratorException
+    public void addRideToRepository(String[] userId, Ride[][] rides)
     {
-        for (int i = 0; i < userId.length; i++)
-        {
-            rideRepository.addRideForUser(userId[i], rides[i]);
-        }
+        IntStream.range(0,userId.length).forEach(i -> {
+            try
+            {
+                rideRepository.addRideForUser(userId[i], rides[i]);
+            }
+            catch (InvoiceGeneratorException e)
+            {
+                e.printStackTrace();
+            } });
     }
 }

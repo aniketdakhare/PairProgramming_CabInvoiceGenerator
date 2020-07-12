@@ -50,8 +50,7 @@ public class InvoiceGeneratorTest
     }
 
     @Test
-    public void givenUserId_ShouldReturnInvoiceSummary() throws InvoiceGeneratorException
-    {
+    public void givenUserId_ShouldReturnInvoiceSummary() {
         String[] userId = {"user1", "user2", "user3"};
         Ride[][] rides = {{new Ride(5.0, 12, RideType.NORMAL), new Ride(2.5, 6, RideType.NORMAL)},
                           {new Ride(3.0, 5, RideType.NORMAL), new Ride(0.01, 1, RideType.NORMAL)},
@@ -63,27 +62,18 @@ public class InvoiceGeneratorTest
     }
 
     @Test
-    public void givenSameUserId_ShouldThrowException()
-    {
-        try
-        {
-            String[] userId = {"user1", "user1", "user3"};
-            Ride[][] rides = {{new Ride(5.0, 12, RideType.NORMAL), new Ride(2.5, 6, RideType.NORMAL)},
-                              {new Ride(3.0, 5, RideType.NORMAL), new Ride(0.01, 1, RideType.NORMAL)},
-                              {new Ride(10.0, 15, RideType.NORMAL), new Ride(2, 30, RideType.NORMAL)}};
-            ExpectedException exceptionRule = ExpectedException.none();
-            exceptionRule.expect(InvoiceGeneratorException.class);
-            invoiceGenerator.addRideToRepository(userId, rides);
-        }
-        catch (InvoiceGeneratorException e)
-        {
-            e.printStackTrace();
-        }
+    public void givenSameUserId_ShouldThrowException() {
+        String[] userId = {"user1", "user1", "user3"};
+        Ride[][] rides = {{new Ride(5.0, 12, RideType.NORMAL), new Ride(2.5, 6, RideType.NORMAL)},
+                          {new Ride(3.0, 5, RideType.NORMAL), new Ride(0.01, 1, RideType.NORMAL)},
+                          {new Ride(10.0, 15, RideType.NORMAL), new Ride(2, 30, RideType.NORMAL)}};
+        ExpectedException exceptionRule = ExpectedException.none();
+        exceptionRule.expect(InvoiceGeneratorException.class);
+        invoiceGenerator.addRideToRepository(userId, rides);
     }
 
     @Test
-    public void givenPremiumAndNormalRideForUserId_ShouldReturnInvoiceSummary() throws InvoiceGeneratorException
-    {
+    public void givenPremiumAndNormalRideForUserId_ShouldReturnInvoiceSummary() {
             String[] userId = {"user1", "user2", "user3"};
             Ride[][] rides = {{new Ride(5.0, 12, RideType.PREMIUM), new Ride(2.5, 6, RideType.NORMAL)},
                               {new Ride(3.0, 5, RideType.PREMIUM), new Ride(0.01, 1, RideType.PREMIUM)},
