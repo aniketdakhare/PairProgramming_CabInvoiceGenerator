@@ -54,7 +54,7 @@ public class InvoiceGenerator
      */
     public void addRideToRepository(String[] userId, Ride[][] rides)
     {
-        IntStream.range(0,userId.length).forEach(i -> {
+        IntStream.range(0, userId.length).forEach(i -> {
             try
             {
                 rideRepository.addRideForUser(userId[i], rides[i]);
