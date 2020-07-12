@@ -1,6 +1,7 @@
 package com.bridgelabz.cabinvoicegenerator.utility;
 
 import com.bridgelabz.cabinvoicegenerator.exception.InvoiceGeneratorException;
+import com.bridgelabz.cabinvoicegenerator.model.Ride;
 
 import java.util.HashMap;
 import java.util.Map;

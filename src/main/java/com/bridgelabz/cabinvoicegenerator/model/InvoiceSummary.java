@@ -1,4 +1,4 @@
-package com.bridgelabz.cabinvoicegenerator.utility;
+package com.bridgelabz.cabinvoicegenerator.model;
 
 public class InvoiceSummary
 {
